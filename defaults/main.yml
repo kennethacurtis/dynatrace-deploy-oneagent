@@ -1,0 +1,22 @@
+---
+# Dynatrace Instances split in dev and prod environments
+tenant_url_dev: ''
+tenant_url_prod: ''
+
+# switch value to 'prod' if you want to install in production and 'dev' for non prod deployment
+dynatrace_environment: dev
+# switch value to true if you want to install the latest version
+oneagent_version_latest: false
+
+installer_type: 'default'
+# oneagent version must be in this format, e.g. '1.179.206.20191127-164958'
+oneagent_version: ''
+arch: 'all'
+# paas or tenant token
+paas_token: ''
+
+oneagent_installer_script_url_latest_dev: "{{ tenant_url_dev }}/api/v1/deployment/installer/agent/{{ os_type }}/{{ installer_type }}/latest/?Api-Token={{ paas_token }}&flavor=default&arch={{ arch }}"
+oneagent_installer_script_url_versioned_dev: "{{ tenant_url_dev }}/api/v1/deployment/installer/agent/{{ os_type }}/{{ installer_type }}/version/{{ oneagent_version }}/?Api-Token={{ paas_token }}&flavor=default&arch={{ arch }}"
+
+oneagent_installer_script_url_latest_prod: "{{ tenant_url_prod }}/api/v1/deployment/installer/agent/{{ os_type }}/{{ installer_type }}/latest/?Api-Token={{ paas_token }}&flavor=default&arch={{ arch }}"
+oneagent_installer_script_url_versioned_prod: "{{ tenant_url_prod }}/api/v1/deployment/installer/agent/{{ os_type }}/{{ installer_type }}/version/{{ oneagent_version }}/?Api-Token={{ paas_token }}&flavor=default&arch={{ arch }}"

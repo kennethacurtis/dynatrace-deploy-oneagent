@@ -1,0 +1,3 @@
+---
+- name: Run OneAgent install on {{ ansible_system }}
+  include_tasks: "{{ ansible_system }}.yml" 

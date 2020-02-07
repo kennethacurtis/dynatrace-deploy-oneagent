@@ -1,0 +1,19 @@
+---
+# windows specific executables and folder structures
+os_type: 'windows'
+download_dir: 'C:\Windows\Temp\'
+service_name: 'Dynatrace OneAgent'
+dynatrace_state: 'D:\Program Files\dynatrace\oneagent\agent\agent.state'
+filename: 'Dynatrace-OneAgent.exe'
+download_path: "{{ download_dir }}{{ filename }}"
+
+# install parameters
+oneagent_params_array:
+  - 'INFRA_ONLY=0'
+  - 'APP_LOG_CONTENT_ACCESS=1'
+  - 'HOST_GROUP=AnsiblePOC_App_Test'
+  - 'INSTALL_PATH="D:\\Program Files\\dynatrace\\"'
+  - '/qn'
+
+# command that installs the agent
+oneagent_install_command: "{{ download_path }} {{ oneagent_params_array | join(' ') }}"
