@@ -3,7 +3,7 @@
    include_vars: "{{ ansible_system }}.yml"
 
  - name: Include envrionment variables.
-   include_vars: "{{ dynatrace_environment}}.yml"
+   include_vars: "{{ dynatrace_environment }}.yml"
 
  - name: Check if Dynatrace OneAgent is already installed
    stat:
@@ -12,17 +12,17 @@
 
  - name: Build oneagent install url
    include_tasks: "build-url.yml"
-   when: agent_installed.stat.exists == false
+   when: not agent_installed.stat.exists
 
  - name: Download Dynatrace OneAgent
    get_url:
      url: "{{ oneagent_installer_script_url }}"
      validate_certs: no
      dest: "{{ download_dir }}{{ filename }}"    
-   when: agent_installed.stat.exists == false
+   when: not agent_installed.stat.exists
 
  - name: Install Dynatrace OneAgent
-   shell: "sh {{ oneagent_install_command }}"
+   command: "sh {{ oneagent_install_command }}"
    become: yes
-   when: ansible_architecture != "armv7l" and agent_installed.stat.exists == false
+   when: ansible_architecture != "armv7l" and not agent_installed.stat.exists
    notify: Start the One Agent Service Linux
