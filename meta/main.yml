@@ -2,7 +2,7 @@ galaxy_info:
   author: kennethacurtis
   description: Dynatrace OneAgent deployment for windows or linux
   company: "Humana"
-  license: license (GPL-2.0-or-later, MIT, etc)
+  license: "license (BSD, MIT)"
   min_ansible_version: 2.9
   platforms:
     - name: EL
