@@ -1,22 +1,20 @@
 ---
-# Dynatrace Instances split in dev and prod environments
-tenant_url_dev: ''
-tenant_url_prod: ''
+# See documentation on custom oneagent installs: https://www.dynatrace.com/support/help/technology-support/operating-systems/linux/installation/customize-oneagent-installation-on-linux/
 
 # switch value to 'prod' if you want to install in production and 'dev' for non prod deployment
+# see prod.yml and dev.yml in the vars folder
 dynatrace_environment: dev
-# switch value to true if you want to install the latest version
-oneagent_version_latest: false
 
-installer_type: 'default'
-# oneagent version must be in this format, e.g. '1.179.206.20191127-164958'
+# can be 'latest' or a version number, e.g. '1.179.206.20191127-164958'
 oneagent_version: ''
+
 arch: 'all'
-# paas or tenant token
+
+# paas or tenant token for the download url
 paas_token: ''
 
-oneagent_installer_script_url_latest_dev: "{{ tenant_url_dev }}/api/v1/deployment/installer/agent/{{ os_type }}/{{ installer_type }}/latest/?Api-Token={{ paas_token }}&flavor=default&arch={{ arch }}"
-oneagent_installer_script_url_versioned_dev: "{{ tenant_url_dev }}/api/v1/deployment/installer/agent/{{ os_type }}/{{ installer_type }}/version/{{ oneagent_version }}/?Api-Token={{ paas_token }}&flavor=default&arch={{ arch }}"
+installer_type: 'default'
 
-oneagent_installer_script_url_latest_prod: "{{ tenant_url_prod }}/api/v1/deployment/installer/agent/{{ os_type }}/{{ installer_type }}/latest/?Api-Token={{ paas_token }}&flavor=default&arch={{ arch }}"
-oneagent_installer_script_url_versioned_prod: "{{ tenant_url_prod }}/api/v1/deployment/installer/agent/{{ os_type }}/{{ installer_type }}/version/{{ oneagent_version }}/?Api-Token={{ paas_token }}&flavor=default&arch={{ arch }}"
+# see install parameters for the oneagent in the OS specific vars in the vars folder
+# documentation for host groups: https://www.dynatrace.com/support/help/how-to-use-dynatrace/hosts/configuration/organize-your-environment-using-host-groups/
+oneagent_host_group: ''

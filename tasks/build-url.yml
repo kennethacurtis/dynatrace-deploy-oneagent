@@ -1,0 +1,10 @@
+---
+- name: Set dynatrace install url if version is latest
+  set_fact:
+    oneagent_installer_script_url: "{{ tenant_url }}api/v1/deployment/installer/agent/{{ os_type }}/{{ installer_type }}/latest/?Api-Token={{ paas_token }}&flavor=default&arch={{ arch }}"
+  when: oneagent_version == 'latest'
+
+- name: Set dynatrace install url for version {{ oneagent_version }}
+  set_fact:
+    oneagent_installer_script_url: "{{ tenant_url }}api/v1/deployment/installer/agent/{{ os_type }}/{{ installer_type }}/version/{{ oneagent_version }}/?Api-Token={{ paas_token }}&flavor=default&arch={{ arch }}"
+  when: oneagent_version != 'latest'

@@ -1,33 +1,28 @@
 --- 
- - name: Include System variables.
+ - name: Include OS-specific variables.
    include_vars: "{{ ansible_system }}.yml"
+
+ - name: Include envrionment variables.
+   include_vars: "{{ dynatrace_environment}}.yml"
 
  - name: Check if Dynatrace OneAgent is already installed
    stat:
-     path: "{{ dynatrace_state }}"
+     path: "{{ dynatrace_executable }}"
    register: agent_installed
 
- - name: Download Dynatrace OneAgent dev
-   get_url:
-     url: "{{ oneagent_installer_script_url_latest_dev if oneagent_version_latest == true else oneagent_installer_script_url_versioned_dev }}"
-     validate_certs: no
-     dest: "{{ download_dir }}{{ filename }}"    
-   when: agent_installed.stat.exists == false and dynatrace_environment == 'dev'
+ - name: Build oneagent install url
+   include_tasks: "build-url.yml"
+   when: agent_installed.stat.exists == false
 
- - name: Download Dynatrace OneAgent prod
+ - name: Download Dynatrace OneAgent
    get_url:
-     url: "{{ oneagent_installer_script_url_latest_prod if oneagent_version_latest == true else oneagent_installer_script_url_versioned_prod }}"
+     url: "{{ oneagent_installer_script_url }}"
      validate_certs: no
      dest: "{{ download_dir }}{{ filename }}"    
-   when: agent_installed.stat.exists == false and dynatrace_environment == 'prod'
+   when: agent_installed.stat.exists == false
 
  - name: Install Dynatrace OneAgent
    shell: "sh {{ oneagent_install_command }}"
    become: yes
    when: ansible_architecture != "armv7l" and agent_installed.stat.exists == false
-
- - name: Start the One Agent Service
-   service:
-     name: "{{ service_name }}"
-     state: started
-   when: agent_installed.stat.exists == false
+   notify: Start the One Agent Service Linux

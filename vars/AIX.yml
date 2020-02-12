@@ -3,7 +3,7 @@
 os_type: 'unix'
 download_dir: '/tmp/'
 service_name: 'oneagent'
-dynatrace_state: '/opt/dynatrace/oneagent/agent/lib64/liboneagentos.so'
+dynatrace_executable: '/opt/dynatrace/oneagent/agent/lib64/liboneagentos.so'
 filename: "Dynatrace-OneAgent.sh"
 download_path: "{{ download_dir }}{{ filename }}"
 
@@ -11,7 +11,7 @@ download_path: "{{ download_dir }}{{ filename }}"
 oneagent_params_array:
   - 'INFRA_ONLY=0'
   - 'APP_LOG_CONTENT_ACCESS=1'
-  - 'HOST_GROUP=AnsiblePOC_App_Test'
+  - 'HOST_GROUP={{ oneagent_host_group }}'
 
 # command that installs the agent
 oneagent_install_command: "{{ download_path }} {{ oneagent_params_array | join(' ') }}"
