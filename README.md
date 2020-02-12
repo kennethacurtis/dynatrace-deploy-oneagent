@@ -14,10 +14,9 @@ Role Variables
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
 
-    # See documentation on custom oneagent installs: https://www.dynatrace.com/support/help/      # technology-support/operating-systems/linux/installation/                                    # customize-oneagent-installation-on-linux/
+    # See documentation on custom oneagent installs: https://www.dynatrace.com/support/help/technology-support/operating-systems/linux/installation/customize-oneagent-installation-on-linux/
 
-    # switch value to 'prod' if you want to install in production and 'dev' for non prod
-    # deployment
+    # switch value to 'prod' if you want to install in production and 'dev' for non prod deployment
     # see prod.yml and dev.yml in the vars folder
     dynatrace_environment: dev
 
