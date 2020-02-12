@@ -23,5 +23,5 @@
 
  - name: Install oneagent
    win_shell: "{{ oneagent_install_command }}"
-   when: agent_installed.stat.exists == false
+   when: not agent_installed.stat.exists
    notify: not agent_installed.stat.exists
