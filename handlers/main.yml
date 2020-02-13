@@ -1,2 +1,11 @@
 ---
 # handlers file for ansible-role-dynatrace-deploy-oneagent
+ - name: Start the One Agent Service Linux
+   service:
+     name: "{{ service_name }}"
+     state: started
+
+ - name: Start the One Agent Service Windows
+   win_service:
+     name: "{{ service_name }}"
+     state: started
